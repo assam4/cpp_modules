@@ -89,19 +89,20 @@ static void	search_state(std::istream& in, std::ostream& out, const Phonebook& b
 	do {
 		out << Prompt;
 		char letter = in.get();
-		if (in.eof())
-			throw std::runtime_error(StreamError);
-		if (letter == '\n') 
-		   return ;
-		in.putback(letter);	
-		in >> index;
 		if (in.fail()) {
 			out << NonNumeric;
 			in.clear();
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
-		else
+		else if (in.eof())
+			throw std::runtime_error(StreamError);
+		else if (letter == '\n') 
+		   return ;
+		else {
+			in.putback(letter);	
+			in >> index;
 			break ;
+		}
 	} while (true);
 	in.get();
 	if (index)
