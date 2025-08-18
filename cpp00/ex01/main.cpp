@@ -89,12 +89,12 @@ static void	search_state(std::istream& in, std::ostream& out, const Phonebook& b
 	do {
 		out << Prompt;
 		char letter = in.get();
+		if (in.eof())
+			throw std::runtime_error(StreamError);
 		if (letter == '\n') 
 		   return ;
 		in.putback(letter);	
 		in >> index;
-		if (in.eof())
-			throw std::runtime_error(StreamError);
 		if (in.fail()) {
 			out << NonNumeric;
 			in.clear();
