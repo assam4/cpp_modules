@@ -6,7 +6,7 @@
 /*   By: saslanya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:50:59 by saslanya          #+#    #+#             */
-/*   Updated: 2025/08/17 11:28:44 by saslanya         ###   ########.fr       */
+/*   Updated: 2025/08/19 00:06:04 by saslanya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	get_param(std::istream& in, std::ostream& out, std::string& input, i
 
 		out << Prompt;
 		std::getline(in,input);
-		if (in.eof())
+		if (in.eof() || in.bad())
 			throw std::runtime_error(StreamError);
 		else if (in.fail()) {
 			in.clear();
@@ -74,7 +74,7 @@ static void	add_state(std::istream& in, std::ostream& out, Phonebook& book) {
 	if (!get_param(in, out, params[4], usdef_compare))
 		return ;
 	book.add(params[0], params[1], params[2], params[3], params[4]);
-	out << SucAdded;
+	out << '\n' << SucAdded;
 }
 
 static void	search_state(std::istream& in, std::ostream& out, const Phonebook& book) {
@@ -82,20 +82,20 @@ static void	search_state(std::istream& in, std::ostream& out, const Phonebook& b
 
 	out << std::endl << Smode << std::endl;
 	if (!book.list_print(out)) {
-		out << "Empty list" << std::endl;
+		out << "\nEmpty list" << std::endl;
 		return ;
 	}
 	out << Sselect;
 	do {
 		out << Prompt;
 		char letter = in.get();
-		if (in.fail()) {
+		if (in.eof() || in.bad())
+			throw std::runtime_error(StreamError);
+		else if (in.fail()) {
 			out << NonNumeric;
 			in.clear();
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
-		else if (in.eof())
-			throw std::runtime_error(StreamError);
 		else if (letter == '\n') 
 		   return ;
 		else {
@@ -118,7 +118,7 @@ static void	gmenu_state(std::istream& in, std::ostream& out) {
 	out << std::endl << Select << AddInfo << SearchInfo << ExitInfo << Prompt;
 	std::getline(in, input);
 	if (in.bad() || in.eof())
-		throw std::runtime_error("Stream closed!Crash exit");
+		throw std::runtime_error(StreamError);
 	else if (in.fail()) {
 		in.clear();
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
