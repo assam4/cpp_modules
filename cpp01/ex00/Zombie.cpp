@@ -1,7 +1,5 @@
 #include "Zombie.hpp"
 
-//static const char	*Zombie_str = "Zombie";
-//static const char	*Ctor_str = "created!";
 static const char	*Separator = ": ";
 static const char	*Dtor_str = "destroyed!";
 static const char	*Brainz_str = "BraiiiiiiinnnzzzZ...";
