@@ -10,7 +10,8 @@ std::string	StringReplace::operator()(const std::string& source) const {
 			current_pos = source.find(this->m_search, prev_pos);
 			if (current_pos == std::string::npos)
 				break ;
-			filtered.append(source.substr(prev_pos, current_pos));
+			if (current_pos != prev_pos)
+				filtered.append(source.substr(prev_pos, current_pos - prev_pos));
 			filtered.append(this->m_replace);
 			prev_pos = current_pos + this->m_search.length();
 		} while (true);
