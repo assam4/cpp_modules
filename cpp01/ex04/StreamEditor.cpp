@@ -31,19 +31,21 @@ bool	StreamEditor::set_filter(const std::string& s1, const std::string& s2) {
 }
 
 bool	StreamEditor::readline() {
-	std::string		temp;
+	std::string	buffer(4096, '\0');
 
 	if (!this->m_i.is_open())
 		return  false;
-	if (!std::getline(this->m_i, temp)) {
+	m_i.read(&buffer[0], buffer.size());
+	ssize_t	count = m_i.gcount();
+	if (!m_i.good() && !count) {
 		this->m_i.close();
 		return false;
 	}
-	temp += '\n';
+	buffer.resize(count);
 	if (!this->m_filter.empty())
-		this->m_buffer = m_filter(temp);
+		this->m_buffer = m_filter(buffer);
 	else
-		this->m_buffer = temp;
+		this->m_buffer = buffer;
 	return true;
 }
 
