@@ -1,25 +1,25 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap(): m_name("Unnamed"), m_hitPoint(10), m_energyPoint(10), m_damage(0) {
-	std::cout << "default ctor called!\n";
+	std::cout << "ClapTrap default ctor called!\n";
 }
 
 ClapTrap::ClapTrap(const std::string& name, unsigned hp, unsigned ep, unsigned ad)
 	: m_name(name), m_hitPoint(hp), m_energyPoint(ep), m_damage(ad) {
-		std::cout << "ctor with params called!\n";
+		std::cout << "ClapTrap ctor with params called!\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other)
 	: m_name(other.m_name), m_hitPoint(other.m_hitPoint), m_energyPoint(other.m_energyPoint), m_damage(other.m_damage) {
-	std::cout << "Copy ctor called!\n";
+	std::cout << "ClapTrap copy ctor called!\n";
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "dtor called!\n";
+	std::cout << "ClapTrap dtor called!\n";
 }
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap& oth) {
-	std::cout << "operator assignment called!\n";
+	std::cout << "ClapTrap operator assignment called!\n";
 	if (this != &oth) {
 		m_name = oth.m_name;
 		m_hitPoint = oth.m_hitPoint;
