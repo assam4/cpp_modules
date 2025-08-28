@@ -7,7 +7,11 @@ int	main(int argc, char** argv) {
 		if (argc != 4)
 			return EXIT_SUCCESS;
 		StreamEditor delivery;
-		if (!delivery.set_istream(argv[1]) || !delivery.set_ostream("replaced.txt"))
+		std::string	name(argv[1]);
+		size_t i = name.find(".", 0);
+		name.resize(i);
+		name += ".replace";
+		if (!delivery.set_istream(argv[1]) || !delivery.set_ostream(name.c_str()))
 			return EXIT_FAILURE;
 		delivery.set_filter(argv[2], argv[3]);
 		while (delivery.readline())
