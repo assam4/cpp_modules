@@ -4,12 +4,12 @@
 # include <iostream>
 # include <string>
 
-class Brain {
+class	Brain {
 	public:
 		Brain();
 		~Brain();
 		Brain(const Brain&);
-		Brain& operator=(const Brain&);
+		Brain&	operator=(const Brain&);
 	private:
 		std::string	m_ideas[100];	
 };

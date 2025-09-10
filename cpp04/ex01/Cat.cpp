@@ -8,12 +8,12 @@ Cat::Cat(): Animal("Cat") {
 		std::cout << "Allocation failed!.\n";
 		m_attribute = NULL;
 	}
-	std::cout << "Cat: default ctor called\n";
+	std::cout << "Cat: default ctor called!.\n";
 }
 
 Cat::~Cat() {
 	delete m_attribute;
-	std::cout << "Cat: dtor called\n";
+	std::cout << "Cat: dtor called!.\n";
 }
 
 Cat::Cat(const Cat& oth): Animal(oth) {
@@ -24,12 +24,12 @@ Cat::Cat(const Cat& oth): Animal(oth) {
 		std::cout << "Allocation failed!.\n";
 		m_attribute = NULL;
 	};
-	std::cout << "Cat: copy ctor called!\n";
+	std::cout << "Cat: copy ctor called!.\n";
 }
 
 Cat&	Cat::operator=(const Cat& oth) {
-	std::cout << "Cat: operator assignment called!\n";
 	Animal::operator=(oth);
+	std::cout << "Cat: operator assignment called!.\n";
 	if (this != &oth) {
 		delete m_attribute;
 		try {

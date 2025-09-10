@@ -3,14 +3,14 @@
 
 #include "Animal.hpp"
 
-class Dog: public Animal {
+class	Dog: public Animal {
 	public:
 		Dog();
 		~Dog();
 		Dog(const Dog&);
-		Dog& operator=(const Dog&);
+		Dog&	operator=(const Dog&);
 	public:
-		void makeSound() const;
+		void	makeSound() const;
 	private:
 		Brain*	m_attribute;
 };

@@ -3,14 +3,14 @@
 
 # include "AAnimal.hpp"
 
-class Cat: public AAnimal {
+class	Cat: public AAnimal {
 	public:
 		Cat();
 		~Cat();
 		Cat(const Cat&);
-		Cat& operator=(const Cat&);
+		Cat&	operator=(const Cat&);
 	public:
-		void makeSound() const;
+		void	makeSound() const;
 	private:
 		Brain*	m_attribute;
 };

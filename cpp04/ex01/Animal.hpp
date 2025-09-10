@@ -3,18 +3,18 @@
 
 # include "Brain.hpp"
 
-class Animal {
+class	Animal {
 	public:
 		Animal();
 		Animal(const std::string&);
 		virtual ~Animal();
 		Animal(const Animal&);
-		Animal& operator=(const Animal&);
+		Animal&	operator=(const Animal&);
 	public:
-		virtual void makeSound() const;
+		virtual void	makeSound() const;
 		std::string	getType() const;
 	protected:
-		std::string type;
+		std::string	type;
 };
 
 #endif
