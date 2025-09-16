@@ -5,6 +5,8 @@
 # include <string>
 # include <exception>
 
+class AForm;
+
 class	Bureaucrat {
 	public:
 		class	GradeTooHighException: public std::exception {
@@ -12,6 +14,7 @@ class	Bureaucrat {
 				// override
 				const char*	what() const throw();
 		};
+
 		class	GradeTooLowException: public std::exception {
 			public:
 				// override
@@ -27,6 +30,8 @@ class	Bureaucrat {
 		int					getGrade() const;
 		void				increment();
 		void				decrement();
+		void				signForm(AForm&) const;
+		void				executeForm(const AForm&) const;
 	private:
 		const std::string	m_name;
 		int					m_grade;

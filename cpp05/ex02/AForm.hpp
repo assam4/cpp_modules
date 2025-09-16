@@ -1,12 +1,12 @@
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 # include <string>
 # include <exception>
 
-class	Bureaucrat;
+class Bureaucrat;
 
-class	Form {
+class AForm {
 	public:
 		class	GradeTooHighException: public std::exception {
 			public:
@@ -16,13 +16,18 @@ class	Form {
 			public:
 				const char* what() const throw();
 		};
+		class	FormNotSignedException: public std::exception {
+			public:
+				const char*	what() const throw();
+		};
 	public:
-		Form();
-		Form(const std::string&, int, int);
-		~Form();
-		Form(const Form&);
-		Form&	operator=(const Form&);
+		AForm();
+		AForm(const std::string&, int, int);
+		virtual ~AForm();
+		AForm(const AForm&);
+		AForm&	operator=(const AForm&);
 	public:
+		virtual void	execute(const Bureaucrat&) const = 0;
 		std::string	getName() const;
 		bool		getSigned() const;
 		int			getGradeSign() const;
@@ -35,6 +40,6 @@ class	Form {
 		const int			m_gradeToExecute;
 };
 
-std::ostream&	operator<<(std::ostream&, const Form&);
+std::ostream&	operator<<(std::ostream&, const AForm&);
 
 #endif
