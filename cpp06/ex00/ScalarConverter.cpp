@@ -2,6 +2,20 @@
 #include <cstdlib>
 #include <iostream>
 #include <limits>
+#include <iomanip>
+
+ScalarConverter::ScalarConverter() {
+}
+
+ScalarConverter::~ScalarConverter() {
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter&) {
+}
+
+ScalarConverter&	ScalarConverter::operator=(const ScalarConverter&) {
+	return *this;
+}
 
 static bool	isSpecialLiteral(const std::string& str) {
 	size_t	size = str.size();
@@ -32,6 +46,8 @@ static bool	isValidNumber(const std::string& str) {
 				return false;
 		}
 		else if (str[i] == '.') {
+			if (!i || i == size - 1 || !std::isdigit(str[i + 1]))
+				return false;
 			if (decimal_point || !(i - static_cast<size_t>(sign) || i == size - 1))
 				return false;
 			decimal_point = true;
@@ -51,7 +67,7 @@ static void	printSpecialLiteral(const std::string& str) {
 	}
 }
 
-static void	printAllTypes(double num) {
+static void	printAllTypes(double num, int precNum) {
 	bool	intRange = static_cast<double>(std::numeric_limits<int>::max()) >= num
 						&& static_cast<double>(std::numeric_limits<int>::min()) <= num;
 	bool	floatRange = static_cast<double>(std::numeric_limits<float>::max()) >= num
@@ -70,10 +86,18 @@ static void	printAllTypes(double num) {
 		std::cout << "impossible\n";
 	std::cout << "float: ";
 	if (floatRange)
-		std::cout << num << "f\n";
+		std::cout << std::fixed << std::setprecision(precNum)<< static_cast<float>(num) << "f\n";
 	else
 		std::cout << "impossible\n";
-	std::cout << "double: " << num << "\n";
+	std::cout << "double: " /*<< std::fixed << std::setprecision(precNum)*/ << num << "\n";
+}
+
+static int	getPrecisionNum(const std::string& src) {
+	size_t index = src.find('.');
+	if (index == std::string::npos)
+		return 1;
+	else
+		return (src.size() - index - 1 - (src[src.size() - 1] == 'f'));
 }
 
 void	ScalarConverter::convert(const std::string& text) {
@@ -83,7 +107,7 @@ void	ScalarConverter::convert(const std::string& text) {
 	if (specialLit) printSpecialLiteral(text);
 	else if (number) {
 		double	numberF = (specialChar) ? static_cast<double>(text[1]) : std::atof(text.c_str());
-		printAllTypes(numberF);
+		printAllTypes(numberF, getPrecisionNum(text));
 	}
 	else
 		std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n";

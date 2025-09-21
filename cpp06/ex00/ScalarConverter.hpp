@@ -9,6 +9,8 @@ class ScalarConverter {
 	private:
 		ScalarConverter();
 		~ScalarConverter();
+		ScalarConverter(const ScalarConverter&);
+		ScalarConverter&	operator=(const ScalarConverter&);
 };
 
 #endif

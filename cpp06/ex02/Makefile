@@ -1,9 +1,9 @@
-NAME := convert
+NAME := a.out
 CXX := c++ 
 CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
-INC := ScalarConverter.hpp
-SRC := ScalarConverter.cpp main.cpp
+INC := Base.hpp A.hpp B.hpp C.hpp
+SRC := Base.cpp main.cpp
 OBJ := $(SRC:.cpp=.o)
 
 all: $(NAME)
