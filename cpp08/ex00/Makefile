@@ -1,6 +1,6 @@
 NAME:= easyfind
 CXX:= c++
-CXXFLAGS := -Wall -Wextra -Werror
+CXXFLAGS := -Wall -Wextra -Werror -std=c++98
 
 INC:= easyfind.tpp easyfind.hpp
 SRC:= main.cpp
