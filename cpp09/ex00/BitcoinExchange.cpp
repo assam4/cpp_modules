@@ -78,7 +78,7 @@ void	BitcoinExchange::validateValue(const std::string& value, bool isDB) const {
 		validateIntPart(value, isDB);
 	else { 
 		validateIntPart(value.substr(0, sep), isDB);
-		if (!basicValidation(value.substr(sep + 1)))
+		if (value.substr(0, sep) == "1000" || !basicValidation(value.substr(sep + 1)))
 				throw std::invalid_argument("Invalid format.");
 	}
 }
@@ -123,6 +123,8 @@ bool	BitcoinExchange::validateDB(const std::string& src, size_t sep) const {
 void	BitcoinExchange::loadDB(std::ifstream& stream) {
 	std::string	line;
 	while (std::getline(stream, line)) {
+		if (line.empty() || line == "date,exchange_rate")
+			continue ;
 		size_t	sep = line.find(',');
 		if (validateDB(line, sep))
 			m_data[line.substr(0, sep)] = std::atof(line.substr(sep + 1).c_str());
@@ -132,7 +134,7 @@ void	BitcoinExchange::loadDB(std::ifstream& stream) {
 void	BitcoinExchange::search(std::ifstream& stream) const {
 	std::string	line;
 	while (std::getline(stream, line)) {
-		if (line.empty())
+		if (line.empty() || line == "date | value")
 			continue ;
 		size_t	sep = line.find('|');
 		if (validate(line, sep)) {

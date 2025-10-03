@@ -9,13 +9,11 @@ int main(int argc, char **argv) {
 		std::ifstream db("data.csv");
 		if (!db.is_open())
 			throw std::runtime_error("could not open database");
-		db.ignore(10000, '\n');
-        bt.loadDB(db);
+		bt.loadDB(db);
         std::ifstream input(argv[1]);
         if (!input.is_open())
             throw std::runtime_error("could not open input file");
-		input.ignore(1000, '\n');
-        bt.search(input);
+		bt.search(input);
         return 0;
     }
     catch(const std::exception& e) {

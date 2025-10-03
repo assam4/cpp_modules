@@ -39,7 +39,7 @@ class	PmergeMe {
 			return l;
 		}
 		*/
-
+		
 		template <typename T>
 		T smartMerge(T l, T g) const {
 			typedef typename T::reverse_iterator	reverse_iterator;
@@ -48,19 +48,20 @@ class	PmergeMe {
 				return g;
 			else
 				while (!g.empty()) {
+					bool	inserted = false;
 					iterator	first = g.begin();
 					for (reverse_iterator it = l.rbegin(); it != l.rend(); ++it)
 						if (*it <= *first) {
 							l.insert(it.base(), *first);
+							inserted = true;
 							break;
 						}
-					if (first == g.begin())
+					if (!inserted)
 						l.insert(l.begin(), *first);
 					g.erase(first);
 				}
 			return l;
 		}
-
 		
 		template <typename T>
 		T	sortFord_Johnson(T& m_data) const {
@@ -88,7 +89,7 @@ class	PmergeMe {
 			if (is_sorted)
 				return m_data;
 			l = sortFord_Johnson(l);
-			g = sortFord_Johnson(g);
+		//	g = sortFord_Johnson(g);
 			return smartMerge(l, g);
 		}
 };

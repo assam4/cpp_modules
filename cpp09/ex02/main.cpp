@@ -46,9 +46,9 @@ void	print_result(std::vector<int>& v, clock_t t1, clock_t t2) {
 	std::sort(v.begin(), v.end());
 	Containerprint(v);
 	std::cout << "Time to process a range of " << v.size()
-		<< " elements with std::vector: " << t1 << "us\n";
+		<< " elements with std::vector: " << static_cast<double>(t1) / CLOCKS_PER_SEC * 1000.0 << " us\n";
 	std::cout << "Time to process a range of " << v.size()
-		<< " elements with std::list: " << t2 << "us\n";
+		<< " elements with std::list: " << static_cast<double>(t2) / CLOCKS_PER_SEC * 1000.0 << " us\n";
 }
 
 void	test(std::vector<int> v) {
