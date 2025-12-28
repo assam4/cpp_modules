@@ -18,6 +18,7 @@ class	Character: public ICharacter {
 	private:
 		std::string	m_name;
 		AMateria*	m_inventory[4];
+		AMateria*	m_unused[4];
 };
 
 #endif	
